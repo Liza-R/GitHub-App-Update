@@ -151,12 +151,11 @@
 		207A7D372796E5B0001D61FC /* GitHub App Update */ = {
 			isa = PBXGroup;
 			children = (
+				207A7D692796E5FC001D61FC /* AllUsers */,
+				207A7D772796E75D001D61FC /* UserDetailsInfo */,
 				207A7D932796E932001D61FC /* Coordinators */,
 				207A7D902796E911001D61FC /* Observers */,
 				207A7D8A2796E8C5001D61FC /* AdditionalServices */,
-				207A7D772796E75D001D61FC /* UserDetailsInfo */,
-				207A7D722796E722001D61FC /* FoundUsers */,
-				207A7D692796E5FC001D61FC /* AllUsers */,
 				207A7D462796E5B2001D61FC /* Info.plist */,
 				207A7D682796E5EA001D61FC /* Other */,
 			);
@@ -199,6 +198,7 @@
 				207A7D3C2796E5B0001D61FC /* AllUsersViewController.swift */,
 				207A7D6E2796E6AC001D61FC /* AllUsersViewModel.swift */,
 				207A7D702796E6B6001D61FC /* AllUsersTableViewCell.swift */,
+				207A7D722796E722001D61FC /* FoundUsers */,
 			);
 			path = AllUsers;
 			sourceTree = "<group>";
@@ -219,10 +219,10 @@
 				207A7D7A2796E781001D61FC /* ReposUserStruct.swift.swift */,
 				207A7D7C2796E78E001D61FC /* UserDetailsLoader.swift */,
 				207A7D7E2796E799001D61FC /* ReposUserLoader.swift */,
-				207A7D802796E7B1001D61FC /* UserDetailsViewModel.swift */,
-				207A7D822796E7D2001D61FC /* RepoTableViewCell.swift */,
 				207A7D842796E7E5001D61FC /* UserDetailsViewController.swift */,
+				207A7D802796E7B1001D61FC /* UserDetailsViewModel.swift */,
 				207A7D862796E7FC001D61FC /* RepoPresenter.swift */,
+				207A7D822796E7D2001D61FC /* RepoTableViewCell.swift */,
 				207A7D882796E804001D61FC /* Formatter.swift */,
 			);
 			path = UserDetailsInfo;
