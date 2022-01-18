@@ -23,7 +23,7 @@ class AllUsersViewModel {
                 self?.firstUsers.value.forEach { i in
                     i.forEach { j in
                         logins.append(j.login)
-                        avaURLs.append(j.avatar_url)
+                        avaURLs.append(j.avatarURL)
                     }
                 }
             }

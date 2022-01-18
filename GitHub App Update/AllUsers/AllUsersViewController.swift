@@ -70,7 +70,7 @@ extension AllUsersViewController: AllUsersVMProtocol {
             info.forEach { i in
                 i.forEach { j in
                     self.allLogins.append(j.login)
-                    self.allAvatarURLs.append(j.avatar_url)
+                    self.allAvatarURLs.append(j.avatarURL)
                 }
             }
             self.allUsersTableView.reloadData()
