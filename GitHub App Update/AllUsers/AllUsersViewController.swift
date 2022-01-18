@@ -7,16 +7,15 @@ protocol AllUsersVMProtocol: AnyObject {
 
 class AllUsersViewController: UIViewController {
 
-    private var logoGHImageView = UIImageView(),
-                searchUserSearchBar = UISearchBar(),
-                allUsersTableView = UITableView(),
-                allLogins: [String] = [],
-                allAvatarURLs: [String] = [],
-                saveLogins: [String] = [],
-                saveAvasURLs: [String] = []
-    
-    private var viewModel: AllUsersViewModel?,
-                detailsCoordinator: Coordinator?
+    private var logoGHImageView = UIImageView()
+    private var searchUserSearchBar = UISearchBar()
+    private var allUsersTableView = UITableView()
+    private var allLogins: [String] = []
+    private var allAvatarURLs: [String] = []
+    private var saveLogins: [String] = []
+    private var saveAvasURLs: [String] = []
+    private var viewModel: AllUsersViewModel?
+    private var detailsCoordinator: Coordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +40,7 @@ class AllUsersViewController: UIViewController {
         searchUserSearchBar.delegate = self
         searchUserSearchBar.placeholder = "Input user login"
         searchUserSearchBar.snp.makeConstraints { make in
-            make.leading.equalTo(0)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(logoGHImageView.snp.bottom).offset(0)
         }
         
