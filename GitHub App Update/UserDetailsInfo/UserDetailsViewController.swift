@@ -154,8 +154,8 @@ extension UserDetailsViewController: AllDetailsVMProtocol {
                 self.companyNameLabel.text = "Company: " + (i.company ?? "Company Name Not Found")
                 self.locationLabel.text = "Location: " + (i.location ?? "Location Not Found")
                 self.emailLabel.text = "E-mail: " + (i.email ?? "User E-mail Not Found")
-                self.countPublicReposLabel.text = "Public repos: " + String(i.public_repos)
-                self.userReposURL = i.repos_url
+                self.countPublicReposLabel.text = "Public repos: " + String(i.publicReposCount)
+                self.userReposURL = i.reposURL
             }
         }
     }
