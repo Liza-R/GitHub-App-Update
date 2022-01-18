@@ -6,39 +6,37 @@ protocol AllDetailsVMProtocol: AnyObject {
 }
 
 struct UserDetailsViewControllerModel {
-    var reposNames: [String],
-        reposStatuses: [String],
-        reposDescriptions: [String],
-        reposCreateDates: [String],
-        reposUpdateDates: [String],
-        reposPushDates: [String],
-        reposLanguages: [String]
+    var reposNames: [String]
+    var reposStatuses: [String]
+    var reposDescriptions: [String]
+    var reposCreateDates: [String]
+    var reposUpdateDates: [String]
+    var reposPushDates: [String]
+    var reposLanguages: [String]
 }
 
 class UserDetailsViewController: UIViewController {
 
-    private var loginLabel = UILabel(),
-                avatarImageView = UIImageView(),
-                nameLabel = UILabel(),
-                companyNameLabel = UILabel(),
-                locationLabel = UILabel(),
-                emailLabel = UILabel(),
-                countPublicReposLabel = UILabel(),
-                reposTableView = UITableView(),
-                
-                reposNames: [String] = [],
-                reposStatuses: [String] = [],
-                reposDescriptions: [String] = [],
-                reposCreateDates: [String] = [],
-                reposUpdateDates: [String] = [],
-                reposPushDates: [String] = [],
-                reposLanguages: [String] = []
-    
-    var userLogin = "",
-        userAvatarURL = "",
-        userReposURL = ""
-    
+    private var loginLabel = UILabel()
+    private var avatarImageView = UIImageView()
+    private var nameLabel = UILabel()
+    private var companyNameLabel = UILabel()
+    private var locationLabel = UILabel()
+    private var emailLabel = UILabel()
+    private var countPublicReposLabel = UILabel()
+    private var reposTableView = UITableView()
+    private var reposNames: [String] = []
+    private var reposStatuses: [String] = []
+    private var reposDescriptions: [String] = []
+    private var reposCreateDates: [String] = []
+    private var reposUpdateDates: [String] = []
+    private var reposPushDates: [String] = []
+    private var reposLanguages: [String] = []
     private var viewModel: UserDeatilsViewModel?
+    
+    var userLogin = ""
+    var userAvatarURL = ""
+    var userReposURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,26 +53,6 @@ class UserDetailsViewController: UIViewController {
         viewModel = UserDeatilsViewModel(view: self, chooseLogin: userLogin)
         viewModel?.repoPresenter = RepoPresenter()
         viewModel?.repoPresenter?.viewController = self
-    }
-    
-    func uploadReposInfo(_ model: UserDetailsViewControllerModel){
-        reposNames = model.reposNames
-        reposStatuses = model.reposStatuses
-        reposDescriptions = model.reposDescriptions
-        reposCreateDates = model.reposCreateDates
-        reposUpdateDates = model.reposUpdateDates
-        reposPushDates = model.reposPushDates
-        reposLanguages = model.reposLanguages
-        reposTableView.reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        allUserDetails()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         loginLabel.font = UIFont.boldSystemFont(ofSize: 22)
         loginLabel.textAlignment = .center
@@ -133,6 +111,18 @@ class UserDetailsViewController: UIViewController {
             make.top.equalTo(countPublicReposLabel.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        allUserDetails()
+    }
+    
+    func uploadReposInfo(_ model: UserDetailsViewControllerModel){
+        reposNames = model.reposNames
+        reposStatuses = model.reposStatuses
+        reposDescriptions = model.reposDescriptions
+        reposCreateDates = model.reposCreateDates
+        reposUpdateDates = model.reposUpdateDates
+        reposPushDates = model.reposPushDates
+        reposLanguages = model.reposLanguages
+        reposTableView.reloadData()
     }
 }
 

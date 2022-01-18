@@ -17,7 +17,6 @@ class AllUsersTableViewCell: UITableViewCell {
         userInfoStackView = UIStackView()
         contentView.addSubview(userInfoStackView ?? UIStackView())
         
-        
         userInfoStackView?.snp.makeConstraints { make in
             make.leading.top.equalTo(10)
             make.trailing.bottom.equalTo(-10)

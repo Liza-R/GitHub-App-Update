@@ -3,14 +3,14 @@ import SnapKit
 
 class RepoTableViewCell: UITableViewCell {
 
-    var nameLabel = UILabel(),
-        statusLabel = UILabel(),
-        descriptionLabel = UILabel(),
-        createDateLabel = UILabel(),
-        updateDateLabel = UILabel(),
-        pushDateLabel = UILabel(),
-        langLabel = UILabel(),
-        repoStackView: UIStackView?
+    var nameLabel = UILabel()
+    var statusLabel = UILabel()
+    var descriptionLabel = UILabel()
+    var createDateLabel = UILabel()
+    var updateDateLabel = UILabel()
+    var pushDateLabel = UILabel()
+    var langLabel = UILabel()
+    var repoStackView: UIStackView?
     
     override func awakeFromNib() {
         super.awakeFromNib()

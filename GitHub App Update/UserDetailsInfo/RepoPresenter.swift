@@ -2,7 +2,6 @@ import Foundation
 
 class RepoPresenter{
     weak var viewController: UserDetailsViewController?
-    
     var allReposInfo: Observer<[[PublicReposInfo.DetailsRepoInfo]]> = Observer(value: [[]])
     
     init(){
@@ -10,14 +9,14 @@ class RepoPresenter{
     }
     
     func presentRepos() {
-        var reposNames: [String] = [],
-            reposStatuses: [String] = [],
-            reposDescriptions: [String] = [],
-            reposCreateDates: [String] = [],
-            reposUpdateDates: [String] = [],
-            reposPushDates: [String] = [],
-            reposLanguages: [String] = [],
-            formatter = Formatter()
+        var reposNames: [String] = []
+        var reposStatuses: [String] = []
+        var reposDescriptions: [String] = []
+        var reposCreateDates: [String] = []
+        var reposUpdateDates: [String] = []
+        var reposPushDates: [String] = []
+        var reposLanguages: [String] = []
+        let formatter = Formatter()
         
         allReposInfo.subscribe { repo in
             repo.forEach { i in

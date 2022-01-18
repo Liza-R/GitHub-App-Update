@@ -5,17 +5,24 @@ class UserInfo {
         var infoUser: MainUserInfo?
     }
     struct MainUserInfo: Decodable {
-        var login: String,
-            avatarURL: String,
-            reposURL: String,
-            name: String?,
-            company: String?,
-            location: String?,
-            publicReposCount: Int,
-            email: String?
+        var login: String
+        var avatarURL: String
+        var reposURL: String
+        var name: String?
+        var company: String?
+        var location: String?
+        var publicReposCount: Int
+        var email: String?
         
         private enum NewKeys: String, CodingKey {
-            case login, avatarURL = "avatar_url", reposURL = "repos_url", name, company, location, publicReposCount = "public_repos", email
+            case login
+            case avatarURL = "avatar_url"
+            case reposURL = "repos_url"
+            case name
+            case company
+            case location
+            case publicReposCount = "public_repos"
+            case email
         }
         
         init(from decoder: Decoder) throws {

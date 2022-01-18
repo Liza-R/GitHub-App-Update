@@ -6,7 +6,6 @@ protocol AllUsersVMProtocol: AnyObject {
 }
 
 class AllUsersViewController: UIViewController {
-
     private var logoGHImageView = UIImageView()
     private var searchUserSearchBar = UISearchBar()
     private var allUsersTableView = UITableView()
