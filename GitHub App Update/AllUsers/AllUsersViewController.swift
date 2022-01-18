@@ -54,10 +54,8 @@ class AllUsersViewController: UIViewController {
         allUsersTableView.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         allUsersTableView.tableFooterView = UIView()
         allUsersTableView.snp.makeConstraints { make in
-            make.leading.equalTo(0)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
             make.top.equalTo(searchUserSearchBar.snp.bottom).offset(0)
-            make.bottom.equalTo(0)
         }
     }
 }
