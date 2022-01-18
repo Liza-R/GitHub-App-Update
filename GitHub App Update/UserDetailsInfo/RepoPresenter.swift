@@ -24,11 +24,11 @@ class RepoPresenter{
                 i.forEach { j in
                     reposNames.append("\(j.name)")
                     reposDescriptions.append(j.description ?? "Description Not Found")
-                    reposCreateDates.append("Created: " + formatter.formatteDate(date: j.created_at))
-                    reposUpdateDates.append("Updated: " + formatter.formatteDate(date: j.updated_at ?? ""))
-                    reposPushDates.append("Pushed: " + formatter.formatteDate(date: j.pushed_at ?? ""))
+                    reposCreateDates.append("Created: " + formatter.formatteDate(date: j.createDate))
+                    reposUpdateDates.append("Updated: " + formatter.formatteDate(date: j.updateDate ?? ""))
+                    reposPushDates.append("Pushed: " + formatter.formatteDate(date: j.pushDate ?? ""))
                     reposLanguages.append(j.language ?? "Languages Not Found")
-                    reposStatuses.append(formatter.formattePrivate(status: j.private))
+                    reposStatuses.append(formatter.formattePrivate(status: j.statusRepo))
                 }
             }
             self.viewController?.uploadReposInfo(.init(reposNames: reposNames, reposStatuses: reposStatuses, reposDescriptions: reposDescriptions, reposCreateDates: reposCreateDates, reposUpdateDates: reposUpdateDates, reposPushDates: reposPushDates, reposLanguages: reposLanguages))
