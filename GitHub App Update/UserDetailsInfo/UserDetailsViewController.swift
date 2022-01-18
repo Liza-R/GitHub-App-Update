@@ -124,7 +124,7 @@ class UserDetailsViewController: UIViewController {
         reposTableView.register(RepoTableViewCell.self, forCellReuseIdentifier: "repoCell")
         reposTableView.delegate = self
         reposTableView.dataSource = self
-        reposTableView.rowHeight = 155
+        reposTableView.rowHeight = 160
         reposTableView.separatorStyle = .singleLine
         reposTableView.separatorColor = .label
         reposTableView.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
