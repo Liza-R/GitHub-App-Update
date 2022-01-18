@@ -108,7 +108,7 @@ extension AllUsersViewController: UISearchBarDelegate{
                 found.forEach { i in
                     i.items.forEach { j in
                         self.allLogins.append(j?.login ?? "User \(searchText) Not Found")
-                        self.allAvatarURLs.append(j?.avatar_url ?? "-")
+                        self.allAvatarURLs.append(j?.avatarURL ?? "-")
                     }
                 }
             }
