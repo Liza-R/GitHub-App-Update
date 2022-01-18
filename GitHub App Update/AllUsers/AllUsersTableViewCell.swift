@@ -3,8 +3,9 @@ import SnapKit
 
 class AllUsersTableViewCell: UITableViewCell {
 
-    var userAvatarImageView = UIImageView(),
-        userLoginLabel = UILabel()
+    var userAvatarImageView = UIImageView()
+    var userLoginLabel = UILabel()
+    var userInfoStackView: UIStackView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -13,21 +14,24 @@ class AllUsersTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(userAvatarImageView)
-        contentView.addSubview(userLoginLabel)
+        userInfoStackView = UIStackView()
+        contentView.addSubview(userInfoStackView ?? UIStackView())
         
-        userAvatarImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(40)
-            make.height.equalTo(80)
-            make.width.equalTo(80)
+        
+        userInfoStackView?.snp.makeConstraints { make in
+            make.leading.top.equalTo(10)
+            make.trailing.bottom.equalTo(-10)
         }
 
-        userLoginLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(userAvatarImageView.snp.trailing).offset(20)
-            make.width.equalTo(self.frame.size.width - userAvatarImageView.frame.size.width - 80)
+        userInfoStackView?.addArrangedSubview(userAvatarImageView)
+        userInfoStackView?.addArrangedSubview(userLoginLabel)
+        userInfoStackView?.spacing = 10
+
+        userAvatarImageView.snp.makeConstraints { make in
+            make.leading.top.bottom.equalToSuperview()
+            make.width.equalTo(userAvatarImageView.snp.height)
         }
+
         userLoginLabel.font = UIFont.boldSystemFont(ofSize: 22)
         userLoginLabel.textAlignment = .center
     }
