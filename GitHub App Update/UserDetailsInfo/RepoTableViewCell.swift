@@ -23,7 +23,7 @@ class RepoTableViewCell: UITableViewCell {
         contentView.addSubview(repoStackView ?? UIStackView())
 
         repoStackView?.axis = .vertical
-        repoStackView?.alignment = .firstBaseline
+        repoStackView?.alignment = .center
         repoStackView?.distribution = .fillEqually
         
         repoStackView?.snp.makeConstraints { make in
