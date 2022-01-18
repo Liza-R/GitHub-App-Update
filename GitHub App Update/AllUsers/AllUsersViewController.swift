@@ -55,7 +55,7 @@ class AllUsersViewController: UIViewController {
         allUsersTableView.tableFooterView = UIView()
         allUsersTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(searchUserSearchBar.snp.bottom).offset(0)
+            make.top.equalTo(searchUserSearchBar.snp.bottom)
         }
     }
 }

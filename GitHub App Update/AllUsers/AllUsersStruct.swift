@@ -2,11 +2,12 @@ import Foundation
 
 class FirstUsers {
     struct UserMainInfo: Decodable {
-        var login: String,
-            avatarURL: String
+        var login: String
+        var avatarURL: String
 
-        private enum NewKeys : String, CodingKey {
-            case login, avatarURL = "avatar_url"
+        private enum NewKeys: String, CodingKey {
+            case login
+            case avatarURL = "avatar_url"
         }
         
         init(from decoder: Decoder) throws {

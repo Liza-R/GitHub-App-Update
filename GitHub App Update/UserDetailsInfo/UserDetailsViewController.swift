@@ -81,14 +81,12 @@ class UserDetailsViewController: UIViewController {
         loginLabel.text = userLogin
         loginLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         AvatarLoader().loadImage(avaURL: userAvatarURL, image: avatarImageView)
         avatarImageView.snp.makeConstraints { make in
-            make.width.equalTo(100)
-            make.height.equalTo(100)
+            make.width.height.equalTo(100)
             make.centerX.equalToSuperview()
             make.top.equalTo(loginLabel.snp.bottom).offset(5)
         }
@@ -96,36 +94,31 @@ class UserDetailsViewController: UIViewController {
         nameLabel.textAlignment = .center
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(avatarImageView.snp.bottom).offset(5)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
 
         companyNameLabel.textAlignment = .center
         companyNameLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         locationLabel.textAlignment = .center
         locationLabel.snp.makeConstraints { make in
             make.top.equalTo(companyNameLabel.snp.bottom).offset(5)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         emailLabel.textAlignment = .center
         emailLabel.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(5)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         countPublicReposLabel.textAlignment = .center
         countPublicReposLabel.snp.makeConstraints { make in
             make.top.equalTo(emailLabel.snp.bottom).offset(5)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         reposTableView.register(RepoTableViewCell.self, forCellReuseIdentifier: "repoCell")
@@ -138,9 +131,7 @@ class UserDetailsViewController: UIViewController {
         reposTableView.tableFooterView = UIView()
         reposTableView.snp.makeConstraints { make in
             make.top.equalTo(countPublicReposLabel.snp.bottom).offset(10)
-            make.leading.equalTo(0)
-            make.bottom.equalTo(0)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
