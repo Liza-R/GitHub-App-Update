@@ -1,6 +1,10 @@
 import Foundation
 import UIKit
 
+protocol AllUsersViewControllerCoordinatorDelegate{
+    func didSelectUser(_ userLogin: String)
+}
+
 class Coordinator{
     let rootController: UINavigationController
         
@@ -17,7 +21,6 @@ class Coordinator{
         vc.title = "GitHub Users"
         let vm = AllUsersViewModel()
         vc.viewModel = vm
-        vm.coordinator = self
         rootController.pushViewController(vc, animated: true)
     }
         
@@ -27,5 +30,11 @@ class Coordinator{
         let vm = UserDeatilsViewModel(chooseLogin: userLogin)
         vc.viewModel = vm
         rootController.pushViewController(vc, animated: true)
+    }
+}
+
+extension Coordinator: AllUsersViewControllerCoordinatorDelegate {
+    func didSelectUser(_ userLogin: String) {
+        showDetailsVC(userLogin: userLogin)
     }
 }

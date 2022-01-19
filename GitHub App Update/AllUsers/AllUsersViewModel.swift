@@ -6,17 +6,11 @@ class AllUsersViewModel {
     
     private let allUsersService = AllUsersLoader()
     private let foundUsersService = FoundUsersLoader()
-    
-    weak var coordinator: Coordinator?
 
     init() {
         uploadAllUsersInfo()
     }
-    
-    func goToDetailsUserInfo(userLogin: String, userAvatarURL: String){
-        coordinator?.showDetailsVC(userLogin: userLogin)
-    }
-    
+
     func uploadAllUsersInfo() {
         allUsersService.loadFirstUsers { firstUsers in
             DispatchQueue.main.async { [weak self] in

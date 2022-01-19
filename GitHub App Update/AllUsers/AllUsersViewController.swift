@@ -9,8 +9,10 @@ class AllUsersViewController: UIViewController {
     private var allAvatarURLs: [String] = []
     private var saveLogins: [String] = []
     private var saveAvasURLs: [String] = []
+    
     var viewModel: AllUsersViewModel?
-
+    var delegateCoordinator: AllUsersViewControllerCoordinatorDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         allUsersInfo()
@@ -77,7 +79,8 @@ extension AllUsersViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.goToDetailsUserInfo(userLogin: allLogins[indexPath.row], userAvatarURL: allAvatarURLs[indexPath.row])
+        delegateCoordinator = Coordinator.init(rootController: self.navigationController ?? UINavigationController())
+        delegateCoordinator?.didSelectUser(allLogins[indexPath.row])
     }
 }
 
