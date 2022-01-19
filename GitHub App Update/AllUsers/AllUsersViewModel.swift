@@ -7,10 +7,7 @@ class AllUsersViewModel {
     private let allUsersService = AllUsersLoader()
     private let foundUsersService = FoundUsersLoader()
 
-    weak var view: AllUsersVMProtocol?
-    
-    required init(view: AllUsersVMProtocol) {
-        self.view = view
+    init() {
         uploadAllUsersInfo()
     }
     

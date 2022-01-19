@@ -1,10 +1,6 @@
 import UIKit
 import SnapKit
 
-protocol AllUsersVMProtocol: AnyObject {
-    func allUsersInfo()
-}
-
 class AllUsersViewController: UIViewController {
     private var logoGHImageView = UIImageView()
     private var searchUserSearchBar = UISearchBar()
@@ -19,7 +15,7 @@ class AllUsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = AllUsersViewModel(view: self)
+        viewModel = AllUsersViewModel()
         allUsersInfo()
         
         view.backgroundColor = .systemGray4
@@ -57,9 +53,6 @@ class AllUsersViewController: UIViewController {
             make.top.equalTo(searchUserSearchBar.snp.bottom)
         }
     }
-}
-
-extension AllUsersViewController: AllUsersVMProtocol {
     func allUsersInfo() {
         viewModel?.firstUsers.subscribe { info in
             info.forEach { i in
