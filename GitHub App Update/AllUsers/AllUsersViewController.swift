@@ -9,13 +9,11 @@ class AllUsersViewController: UIViewController {
     private var allAvatarURLs: [String] = []
     private var saveLogins: [String] = []
     private var saveAvasURLs: [String] = []
-    private var viewModel: AllUsersViewModel?
-    private var detailsCoordinator: Coordinator?
-    
+    private var viewModel = AllUsersViewModel()
+//    private var detailsCoordinator: Coordinator?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = AllUsersViewModel()
         allUsersInfo()
         
         view.backgroundColor = .systemGray4
@@ -26,9 +24,8 @@ class AllUsersViewController: UIViewController {
         logoGHImageView.image = UIImage(named: "logoGitHub")
         logoGHImageView.contentMode = .scaleAspectFit
         logoGHImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.trailing.leading.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-            make.width.equalTo(100)
             make.height.equalTo(60)
         }
         
@@ -54,7 +51,7 @@ class AllUsersViewController: UIViewController {
         }
     }
     func allUsersInfo() {
-        viewModel?.firstUsers.subscribe { info in
+        viewModel.firstUsers.subscribe { info in
             info.forEach { i in
                 i.forEach { j in
                     self.allLogins.append(j.login)
@@ -81,8 +78,8 @@ extension AllUsersViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        detailsCoordinator = Coordinator(rootController: self.navigationController ?? UINavigationController())
-        detailsCoordinator?.didSelectUser(allLogins[indexPath.row], allAvatarURLs[indexPath.row])
+//        detailsCoordinator = Coordinator(rootController: self.navigationController ?? UINavigationController())
+//        detailsCoordinator?.didSelectUser(allLogins[indexPath.row], allAvatarURLs[indexPath.row])
     }
 }
 
@@ -91,8 +88,8 @@ extension AllUsersViewController: UISearchBarDelegate{
         if searchText != ""{
             self.allAvatarURLs.removeAll()
             self.allLogins.removeAll()
-            viewModel?.foundUsersInfo(foundUserName: searchText)
-            viewModel?.allFoundUsers.subscribe { found in
+            viewModel.foundUsersInfo(foundUserName: searchText)
+            viewModel.allFoundUsers.subscribe { found in
                 found.forEach { i in
                     i.items.forEach { j in
                         self.allLogins.append(j?.login ?? "User \(searchText) Not Found")
