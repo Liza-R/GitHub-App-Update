@@ -9,8 +9,7 @@ class AllUsersViewController: UIViewController {
     private var allAvatarURLs: [String] = []
     private var saveLogins: [String] = []
     private var saveAvasURLs: [String] = []
-    private var viewModel = AllUsersViewModel()
-//    private var detailsCoordinator: Coordinator?
+    var viewModel: AllUsersViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +50,7 @@ class AllUsersViewController: UIViewController {
         }
     }
     func allUsersInfo() {
-        viewModel.firstUsers.subscribe { info in
+        viewModel?.firstUsers.subscribe { info in
             info.forEach { i in
                 i.forEach { j in
                     self.allLogins.append(j.login)
@@ -78,8 +77,7 @@ extension AllUsersViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        detailsCoordinator = Coordinator(rootController: self.navigationController ?? UINavigationController())
-//        detailsCoordinator?.didSelectUser(allLogins[indexPath.row], allAvatarURLs[indexPath.row])
+        viewModel?.goToDetailsUserInfo(userLogin: allLogins[indexPath.row], userAvatarURL: allAvatarURLs[indexPath.row])
     }
 }
 
@@ -88,8 +86,8 @@ extension AllUsersViewController: UISearchBarDelegate{
         if searchText != ""{
             self.allAvatarURLs.removeAll()
             self.allLogins.removeAll()
-            viewModel.foundUsersInfo(foundUserName: searchText)
-            viewModel.allFoundUsers.subscribe { found in
+            viewModel?.foundUsersInfo(foundUserName: searchText)
+            viewModel?.allFoundUsers.subscribe { found in
                 found.forEach { i in
                     i.items.forEach { j in
                         self.allLogins.append(j?.login ?? "User \(searchText) Not Found")

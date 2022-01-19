@@ -1,12 +1,7 @@
 import Foundation
 import UIKit
 
-protocol ViewControllerCoordinatorDelegate {
-    func didSelectUser(_ userLogin: String, _ userAvatarURL: String)
-}
-
 class Coordinator{
-
     let rootController: UINavigationController
         
     init(rootController: UINavigationController) {
@@ -19,19 +14,18 @@ class Coordinator{
         
     func showBaseVC() {
         let vc = AllUsersViewController()
+        vc.title = "GitHub Users"
+        let vm = AllUsersViewModel()
+        vc.viewModel = vm
+        vm.coordinator = self
         rootController.pushViewController(vc, animated: true)
     }
         
-    func showDetailsVC(userLogin: String, userAvatarURL: String) {
+    func showDetailsVC(userLogin: String) {
         let vc = UserDetailsViewController()
-        vc.userLogin = userLogin
-        vc.userAvatarURL = userAvatarURL
+        vc.title = "Main \(userLogin) infotrmation"
+        let vm = UserDeatilsViewModel(chooseLogin: userLogin)
+        vc.viewModel = vm
         rootController.pushViewController(vc, animated: true)
-    }
-}
-
-extension Coordinator: ViewControllerCoordinatorDelegate {
-    func didSelectUser(_ userLogin: String, _ userAvatarURL: String) {
-        showDetailsVC(userLogin: userLogin, userAvatarURL: userAvatarURL)
     }
 }

@@ -1,10 +1,6 @@
 import UIKit
 import SnapKit
 
-protocol AllDetailsVMProtocol: AnyObject {
-    func allUserDetails()
-}
-
 struct UserDetailsViewControllerModel {
     var reposNames: [String]
     var reposStatuses: [String]
@@ -33,16 +29,12 @@ class UserDetailsViewController: UIViewController {
     private var reposUpdateDates: [String] = []
     private var reposPushDates: [String] = []
     private var reposLanguages: [String] = []
-    private var viewModel: UserDeatilsViewModel?
-    
-    var userLogin = ""
-    var userAvatarURL = ""
+    var viewModel: UserDeatilsViewModel?
     var userReposURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = UserDeatilsViewModel(view: self, chooseLogin: userLogin)
         viewModel?.repoPresenter = RepoPresenter()
         viewModel?.repoPresenter?.viewController = self
         
@@ -51,6 +43,7 @@ class UserDetailsViewController: UIViewController {
 
         mainInfoStack?.axis = .vertical
         mainInfoStack?.alignment = .center
+        mainInfoStack?.spacing = 5
         
         mainInfoStack?.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
@@ -69,13 +62,11 @@ class UserDetailsViewController: UIViewController {
         
         loginLabel.font = UIFont.boldSystemFont(ofSize: 22)
         loginLabel.textAlignment = .center
-        loginLabel.text = userLogin
         loginLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
 
-        AvatarLoader().loadImage(avaURL: userAvatarURL, image: avatarImageView)
         avatarImageView.snp.makeConstraints { make in
             make.top.equalTo(loginLabel.snp.bottom)
             make.width.height.equalTo(100)
@@ -128,6 +119,21 @@ class UserDetailsViewController: UIViewController {
         allUserDetails()
     }
     
+    func allUserDetails() {
+        viewModel?.userDetails.subscribe { info in
+            info.forEach { i in
+                self.loginLabel.text = "Login: " + i.login
+                AvatarLoader().loadImage(avaURL: i.avatarURL, image: self.avatarImageView)
+                self.nameLabel.text = "Name: " + (i.name ?? "User Name Not Found")
+                self.companyNameLabel.text = "Company: " + (i.company ?? "Company Name Not Found")
+                self.locationLabel.text = "Location: " + (i.location ?? "Location Not Found")
+                self.emailLabel.text = "E-mail: " + (i.email ?? "User E-mail Not Found")
+                self.countPublicReposLabel.text = "Public repos: " + String(i.publicReposCount)
+                self.userReposURL = i.reposURL
+            }
+        }
+    }
+    
     func uploadReposInfo(_ model: UserDetailsViewControllerModel){
         reposNames = model.reposNames
         reposStatuses = model.reposStatuses
@@ -138,22 +144,7 @@ class UserDetailsViewController: UIViewController {
         reposLanguages = model.reposLanguages
         reposTableView.reloadData()
     }
-}
-
-extension UserDetailsViewController: AllDetailsVMProtocol {
-    func allUserDetails() {
-        viewModel?.userDetails.subscribe { info in
-            info.forEach { i in
-                self.loginLabel.text = "Login: " + i.login
-                self.nameLabel.text = "Name: " + (i.name ?? "User Name Not Found")
-                self.companyNameLabel.text = "Company: " + (i.company ?? "Company Name Not Found")
-                self.locationLabel.text = "Location: " + (i.location ?? "Location Not Found")
-                self.emailLabel.text = "E-mail: " + (i.email ?? "User E-mail Not Found")
-                self.countPublicReposLabel.text = "Public repos: " + String(i.publicReposCount)
-                self.userReposURL = i.reposURL
-            }
-        }
-    }
+    
 }
 
 extension UserDetailsViewController: UITableViewDataSource, UITableViewDelegate{

@@ -6,23 +6,21 @@ class AllUsersViewModel {
     
     private let allUsersService = AllUsersLoader()
     private let foundUsersService = FoundUsersLoader()
+    
+    weak var coordinator: Coordinator?
 
     init() {
         uploadAllUsersInfo()
     }
     
+    func goToDetailsUserInfo(userLogin: String, userAvatarURL: String){
+        coordinator?.showDetailsVC(userLogin: userLogin)
+    }
+    
     func uploadAllUsersInfo() {
-        var logins: [String] = []
-        var avaURLs: [String] = []
         allUsersService.loadFirstUsers { firstUsers in
             DispatchQueue.main.async { [weak self] in
                 self?.firstUsers.value = firstUsers
-                self?.firstUsers.value.forEach { i in
-                    i.forEach { j in
-                        logins.append(j.login)
-                        avaURLs.append(j.avatarURL)
-                    }
-                }
             }
         }
     }
