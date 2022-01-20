@@ -14,6 +14,7 @@ class Coordinator{
         
     func start() {
         showBaseVC()
+        print("start coord")
     }
         
     func showBaseVC() {

@@ -3,8 +3,8 @@ import SnapKit
 
 class AllUsersViewController: UIViewController {
     private var logoGHImageView = UIImageView()
-    private var searchUserSearchBar = UISearchBar()
-    private var allUsersTableView = UITableView()
+    private (set) var searchUserSearchBar = UISearchBar()
+    var allUsersTableView = UITableView()
     private var allLogins: [String] = []
     private var allAvatarURLs: [String] = []
     private var saveLogins: [String] = []
@@ -87,6 +87,7 @@ extension AllUsersViewController: UITableViewDataSource, UITableViewDelegate{
 extension AllUsersViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != ""{
+            print("search")
             self.allAvatarURLs.removeAll()
             self.allLogins.removeAll()
             viewModel?.foundUsersInfo(foundUserName: searchText)
