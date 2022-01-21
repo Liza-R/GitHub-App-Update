@@ -8,12 +8,22 @@ class PublicReposInfo {
         var infoRepoMass: DetailsRepoInfo?
     }
     struct DetailsRepoInfo: Decodable {
-        var name: String,
-            `private`: Bool,
-            description: String?,
-            created_at: String,
-            updated_at: String?,
-            pushed_at: String?,
-            language: String?
+        var name: String
+        var statusRepo: Bool
+        var description: String?
+        var createDate: String
+        var updateDate: String?
+        var pushDate: String?
+        var language: String?
+        
+        private enum CodingKeys: String, CodingKey {
+            case name
+            case statusRepo = "private"
+            case description
+            case createDate = "created_at"
+            case updateDate = "updated_at"
+            case pushDate = "pushed_at"
+            case language
+        }
     }
 }

@@ -1,27 +1,20 @@
 import UIKit
 import SnapKit
 
-protocol AllUsersVMProtocol: AnyObject {
-    func allUsersInfo()
-}
-
 class AllUsersViewController: UIViewController {
-
-    private var logoGHImageView = UIImageView(),
-                searchUserSearchBar = UISearchBar(),
-                allUsersTableView = UITableView(),
-                allLogins: [String] = [],
-                allAvatarURLs: [String] = [],
-                saveLogins: [String] = [],
-                saveAvasURLs: [String] = []
+    private (set) var logoGHImageView = UIImageView()
+    private (set) var searchUserSearchBar = UISearchBar()
+    var allUsersTableView = UITableView()
+    private var allLogins: [String] = []
+    private var allAvatarURLs: [String] = []
+    private var saveLogins: [String] = []
+    private var saveAvasURLs: [String] = []
     
-    private var viewModel: AllUsersViewModel?,
-                detailsCoordinator: Coordinator?
+    var viewModel: AllUsersViewModel?
+    var delegateCoordinator: AllUsersViewControllerCoordinatorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = AllUsersViewModel(view: self)
         allUsersInfo()
         
         view.backgroundColor = .systemGray4
@@ -32,17 +25,15 @@ class AllUsersViewController: UIViewController {
         logoGHImageView.image = UIImage(named: "logoGitHub")
         logoGHImageView.contentMode = .scaleAspectFit
         logoGHImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.trailing.leading.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-            make.width.equalTo(100)
             make.height.equalTo(60)
         }
         
         searchUserSearchBar.delegate = self
         searchUserSearchBar.placeholder = "Input user login"
         searchUserSearchBar.snp.makeConstraints { make in
-            make.leading.equalTo(0)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(logoGHImageView.snp.bottom).offset(0)
         }
         
@@ -56,21 +47,16 @@ class AllUsersViewController: UIViewController {
         allUsersTableView.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         allUsersTableView.tableFooterView = UIView()
         allUsersTableView.snp.makeConstraints { make in
-            make.leading.equalTo(0)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(searchUserSearchBar.snp.bottom).offset(0)
-            make.bottom.equalTo(0)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(searchUserSearchBar.snp.bottom)
         }
     }
-}
-
-extension AllUsersViewController: AllUsersVMProtocol {
     func allUsersInfo() {
         viewModel?.firstUsers.subscribe { info in
             info.forEach { i in
                 i.forEach { j in
                     self.allLogins.append(j.login)
-                    self.allAvatarURLs.append(j.avatar_url)
+                    self.allAvatarURLs.append(j.avatarURL)
                 }
             }
             self.allUsersTableView.reloadData()
@@ -93,14 +79,15 @@ extension AllUsersViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        detailsCoordinator = Coordinator(rootController: self.navigationController ?? UINavigationController())
-        detailsCoordinator?.didSelectUser(allLogins[indexPath.row], allAvatarURLs[indexPath.row])
+        delegateCoordinator = Coordinator.init(rootController: self.navigationController ?? UINavigationController())
+        delegateCoordinator?.didSelectUser(allLogins[indexPath.row])
     }
 }
 
 extension AllUsersViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != ""{
+            print("search")
             self.allAvatarURLs.removeAll()
             self.allLogins.removeAll()
             viewModel?.foundUsersInfo(foundUserName: searchText)
@@ -108,7 +95,7 @@ extension AllUsersViewController: UISearchBarDelegate{
                 found.forEach { i in
                     i.items.forEach { j in
                         self.allLogins.append(j?.login ?? "User \(searchText) Not Found")
-                        self.allAvatarURLs.append(j?.avatar_url ?? "-")
+                        self.allAvatarURLs.append(j?.avatarURL ?? "-")
                     }
                 }
             }

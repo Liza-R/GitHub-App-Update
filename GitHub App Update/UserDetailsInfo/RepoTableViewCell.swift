@@ -3,13 +3,14 @@ import SnapKit
 
 class RepoTableViewCell: UITableViewCell {
 
-    var nameLabel = UILabel(),
-        statusLabel = UILabel(),
-        descriptionLabel = UILabel(),
-        createDateLabel = UILabel(),
-        updateDateLabel = UILabel(),
-        pushDateLabel = UILabel(),
-        langLabel = UILabel()
+    var nameLabel = UILabel()
+    var statusLabel = UILabel()
+    var descriptionLabel = UILabel()
+    var createDateLabel = UILabel()
+    var updateDateLabel = UILabel()
+    var pushDateLabel = UILabel()
+    var langLabel = UILabel()
+    var repoStackView: UIStackView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,13 +19,25 @@ class RepoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(statusLabel)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(createDateLabel)
-        contentView.addSubview(updateDateLabel)
-        contentView.addSubview(pushDateLabel)
-        contentView.addSubview(langLabel)
+        repoStackView = UIStackView()
+        contentView.addSubview(repoStackView ?? UIStackView())
+
+        repoStackView?.axis = .vertical
+        repoStackView?.alignment = .center
+        repoStackView?.distribution = .fillEqually
+        
+        repoStackView?.snp.makeConstraints { make in
+            make.leading.top.equalTo(10)
+            make.trailing.bottom.equalTo(-10)
+        }
+
+        repoStackView?.addArrangedSubview(nameLabel)
+        repoStackView?.addArrangedSubview(statusLabel)
+        repoStackView?.addArrangedSubview(descriptionLabel)
+        repoStackView?.addArrangedSubview(createDateLabel)
+        repoStackView?.addArrangedSubview(updateDateLabel)
+        repoStackView?.addArrangedSubview(pushDateLabel)
+        repoStackView?.addArrangedSubview(langLabel)
 
         statusLabel.textColor = UIColor(red: 0.216, green: 0.271, blue: 0.706, alpha: 1.0)
         descriptionLabel.textColor = UIColor(red: 0.667, green: 0.349, blue: 0.580, alpha: 1.0)
@@ -32,56 +45,47 @@ class RepoTableViewCell: UITableViewCell {
         updateDateLabel.textColor = UIColor(red: 0.545, green: 0.471, blue: 0.149, alpha: 1.0)
         pushDateLabel.textColor = UIColor(red: 0.329, green: 0.494, blue: 0.635, alpha: 1.0)
         langLabel.textColor = UIColor(red: 0.627, green: 0.408, blue: 0.255, alpha: 1.0)
-        
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         nameLabel.textAlignment = .center
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.topMargin)
-            make.leading.equalTo(20)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.top.equalToSuperview()
         }
-        
+
         statusLabel.textAlignment = .center
         statusLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(20)
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(nameLabel.snp.bottom)
+            make.leading.trailing.equalToSuperview()
         }
-        
+
         descriptionLabel.textAlignment = .center
         descriptionLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(20)
-            make.top.equalTo(statusLabel.snp.bottom).offset(5)
+            make.top.equalTo(statusLabel.snp.bottom)
+            make.leading.trailing.equalToSuperview()
         }
-        
+
         createDateLabel.font = UIFont.systemFont(ofSize: 14)
         createDateLabel.snp.makeConstraints { make in
-            make.width.equalTo(contentView.frame.width / 2)
-            make.leading.equalTo(10)
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(descriptionLabel.snp.bottom)
         }
-        
+
         updateDateLabel.font = UIFont.systemFont(ofSize: 14)
         updateDateLabel.snp.makeConstraints { make in
-            make.width.equalTo(contentView.frame.width / 2)
-            make.leading.equalTo(10)
-            make.top.equalTo(createDateLabel.snp.bottom).offset(2)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(createDateLabel.snp.bottom)
         }
-        
+
         pushDateLabel.font = UIFont.systemFont(ofSize: 14)
         pushDateLabel.snp.makeConstraints { make in
-            make.width.equalTo(contentView.frame.width / 2)
-            make.leading.equalTo(10)
-            make.top.equalTo(updateDateLabel.snp.bottom).offset(2)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(updateDateLabel.snp.bottom)
         }
-        
+
         langLabel.textAlignment = .center
-        langLabel.numberOfLines = 3
         langLabel.snp.makeConstraints { make in
-            make.width.equalTo(contentView.frame.width / 2)
-            make.trailing.equalTo(-20)
-            make.centerY.equalTo(updateDateLabel.snp.centerY)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(pushDateLabel.snp.bottom)
         }
     }
     

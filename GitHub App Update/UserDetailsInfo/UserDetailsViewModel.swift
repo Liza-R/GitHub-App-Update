@@ -3,16 +3,12 @@ import Alamofire
 
 class UserDeatilsViewModel {
     var userDetails: Observer<[UserInfo.MainUserInfo]> = Observer(value: [])
-
     var repoPresenter: RepoPresenter?
     
-    private let allDetailsService = UserLoader(),
-                allPublicReposService = RepoLoader()
+    private let allDetailsService = UserLoader()
+    private let allPublicReposService = RepoLoader()
 
-    weak var view: AllDetailsVMProtocol?
-    
-    required init(view: AllDetailsVMProtocol, chooseLogin: String) {
-        self.view = view
+    required init(chooseLogin: String) {
         uploadAllDetailsInfo(chooseLogin: chooseLogin)
         uploadAllReposInfo(chooseLogin: chooseLogin)
     }
