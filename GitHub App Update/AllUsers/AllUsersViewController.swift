@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 
 class AllUsersViewController: UIViewController {
-    private var logoGHImageView = UIImageView()
+    private (set) var logoGHImageView = UIImageView()
     private (set) var searchUserSearchBar = UISearchBar()
     var allUsersTableView = UITableView()
     private var allLogins: [String] = []

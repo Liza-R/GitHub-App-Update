@@ -16,7 +16,8 @@ class AllUsersViewModelMock: AllUsersViewModel {
     }
 }
 
-class TableViewMock: UITableView {
+
+class AllUsersTableViewMock: UITableView {
     var reloadDataWasCalled = false
     override func reloadData() {
         super.reloadData()
@@ -34,20 +35,28 @@ class CoordinatorMock: Coordinator {
 
 class GitHub_App_UpdateTests: XCTestCase {
     var allUsersController: AllUsersViewController!
-    var detailsInfoController: UserDetailsViewController!
     var allUsersVMMock: AllUsersViewModelMock!
-    var tableViewMock: TableViewMock!
+    var allUsersTableViewMock: AllUsersTableViewMock!
     var coordinatorMock: CoordinatorMock!
     let navController = UINavigationController()
     
     override func setUp() {
         super.setUp()
         allUsersController = AllUsersViewController()
-        detailsInfoController = UserDetailsViewController()
         allUsersVMMock = AllUsersViewModelMock()
-        tableViewMock = TableViewMock()
-        allUsersController.allUsersTableView = tableViewMock
+        allUsersTableViewMock = AllUsersTableViewMock()
+        allUsersController.allUsersTableView = allUsersTableViewMock
         coordinatorMock = CoordinatorMock(rootController: self.navController)
+    }
+    
+    func testAllUsersUIs() throws {
+        // when
+        allUsersController.viewDidLoad()
+        
+        // then
+        XCTAssert(allUsersController.contains(allUsersController.allUsersTableView))
+        XCTAssert(allUsersController.contains(allUsersController.searchUserSearchBar))
+        XCTAssert(allUsersController.contains(allUsersController.logoGHImageView))
     }
     
     func testAllUsersLoad() throws {
@@ -74,7 +83,6 @@ class GitHub_App_UpdateTests: XCTestCase {
         allUsersController.viewDidLoad()
         
         // then
-        XCTAssert(allUsersController.contains(allUsersController.searchUserSearchBar))
         XCTAssertNotNil(allUsersController.searchUserSearchBar)
         XCTAssertNotNil(allUsersController.searchUserSearchBar.delegate)
         XCTAssert(allUsersController.conforms(to: UISearchBarDelegate.self))
@@ -86,13 +94,12 @@ class GitHub_App_UpdateTests: XCTestCase {
         allUsersController.allUsersTableView.reloadData()
         
         // then
-        XCTAssert(allUsersController.contains(allUsersController.allUsersTableView))
         XCTAssertNotNil(allUsersController.allUsersTableView)
         XCTAssertNotNil(allUsersController.allUsersTableView.dataSource)
         XCTAssertNotNil(allUsersController.allUsersTableView.delegate)
         XCTAssert(allUsersController.conforms(to: UITableViewDelegate.self))
-        XCTAssert(tableViewMock.reloadDataWasCalled)
-        tableViewMock.reloadDataWasCalled = false
+        XCTAssert(allUsersTableViewMock.reloadDataWasCalled)
+        allUsersTableViewMock.reloadDataWasCalled = false
     }
     
     func testCoordinator(){

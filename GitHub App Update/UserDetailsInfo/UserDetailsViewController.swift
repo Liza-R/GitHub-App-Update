@@ -12,16 +12,15 @@ struct UserDetailsViewControllerModel {
 }
 
 class UserDetailsViewController: UIViewController {
-
-    private var loginLabel = UILabel()
-    private var avatarImageView = UIImageView()
-    private var nameLabel = UILabel()
-    private var companyNameLabel = UILabel()
-    private var locationLabel = UILabel()
-    private var emailLabel = UILabel()
-    private var countPublicReposLabel = UILabel()
-    private var reposTableView = UITableView()
-    private var mainInfoStack: UIStackView?
+    private (set) var loginLabel = UILabel()
+    private (set) var avatarImageView = UIImageView()
+    private (set) var nameLabel = UILabel()
+    private (set) var companyNameLabel = UILabel()
+    private (set) var locationLabel = UILabel()
+    private (set) var emailLabel = UILabel()
+    private (set) var countPublicReposLabel = UILabel()
+    var reposTableView = UITableView()
+    private (set) var mainInfoStack: UIStackView?
     private var reposNames: [String] = []
     private var reposStatuses: [String] = []
     private var reposDescriptions: [String] = []
